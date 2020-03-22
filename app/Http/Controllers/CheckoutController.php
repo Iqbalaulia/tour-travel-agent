@@ -11,11 +11,18 @@ class CheckoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('pages.checkout');
 
     }
+
+    public function success(Request $request)
+    {
+        return view('pages.success');
+
+    }
+
 
     /**
      * Show the form for creating a new resource.

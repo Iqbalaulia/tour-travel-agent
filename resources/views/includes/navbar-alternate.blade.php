@@ -3,8 +3,8 @@
     <nav class="row navbar navbar-expand-lg navbar-light bg-white">
 
         <div class="navbar-nab ml-auto mr-auto mr-sm-auto mr-lg-0 mr-md-auto">
-            <a href="index.html" class="navbar-brand">
-                <img src="frontend/images/logo_nomads.png" alt="">
+            <a href="{{ url('/') }}" class="navbar-brand">
+                <img src="{{ asset('frontend/images/logo_nomads.png') }}" alt="">
             </a>
         </div>
         <ul class="navbar-nav mr-auto d-none d-lg-block">
