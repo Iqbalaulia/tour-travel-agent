@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','HomeController@index')->name('home');
+
+Route::get('/detail','DetailController@index')->name('detail');
+
 
 Route::prefix('admin')
         ->namespace('Admin')
@@ -22,3 +23,5 @@ Route::prefix('admin')
             Route::get('/','DashboardController@index')->name('dashboard');
             
         });
+
+
