@@ -21,7 +21,7 @@ class CreateTravelPackagesTable extends Migration
             $table->longText('about');
             $table->string('featured_event');
             $table->string('language');
-            $table->string('food');
+            $table->string('foods');
             $table->date('departure_date');
             $table->string('duration');
             $table->string('type');
