@@ -120,6 +120,8 @@ class GalleryController extends Controller
      */
     public function destroy($id)
     {
+        // sama seperti sebelumnya
+        
         $item = Gallery::findOrFail($id);
         
         $item->delete();
