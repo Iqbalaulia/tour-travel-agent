@@ -36,4 +36,5 @@ class TravelPackageRequest extends FormRequest
             'price'=> 'required|integer',
         ];
     }
+
 }
