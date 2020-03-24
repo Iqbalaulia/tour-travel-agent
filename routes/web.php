@@ -31,6 +31,9 @@ Route::prefix('admin')
 
             Route::resource('gallery','GalleryController');
 
+            Route::resource('transaction','TransactionController');
+
+
         });
 
 
