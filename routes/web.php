@@ -15,6 +15,7 @@ Route::get('/','HomeController@index')->name('home');
 
 Route::get('/detail/{slug}','DetailController@index')->name('detail');
 
+// memproses data dari checkout
 Route::post('/checkout/{id}','CheckoutController@process')->name('checkout_process')->middleware(['auth','verified']);
 Route::get('/checkout/{id}','CheckoutController@index')->name('checkout')->middleware(['auth','verified']);
 Route::post('/checkout/create/{detail_id}','CheckoutController@create')->name('checkout-create')->middleware(['auth','verified']);
