@@ -31,6 +31,7 @@ class CheckoutController extends Controller
     {
         $travel_package = TravelPackage::findOrFail($id);
         
+        
         $transaction = Transaction::create([
             'travel_packages_id' => $id,
             'users_id' => Auth::user()->id,
@@ -67,13 +68,13 @@ class CheckoutController extends Controller
                 $transaction->additional_visa -= 190;
             }
 
-        $transaction->trasaction_total -= $transaction->travel_package->price;
+        $transaction->transaction_total -= $transaction->travel_package->price;
 
         $transaction->save();
 
         $item->delete();
 
-        return redirect()->route('checkout', $item->transaction_id);
+        return redirect()->route('checkout', $item->transactions_id);
 
     }
 
@@ -87,7 +88,7 @@ class CheckoutController extends Controller
 
         $data = $request->all();
         
-        $data['transaction_id'] = $id;
+        $data['transactions_id'] = $id;
 
         TransactionDetail::create($data);
         
@@ -100,7 +101,7 @@ class CheckoutController extends Controller
             $transaction->additional_visa += 190;
         }
 
-        $transaction->trasaction_total += $transaction->travel_package->price;
+        $transaction->transaction_total += $transaction->travel_package->price;
 
         $transaction->save();
 
