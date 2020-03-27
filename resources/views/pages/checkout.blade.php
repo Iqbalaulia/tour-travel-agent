@@ -3,7 +3,7 @@
 @section('title' ,'Checkout')
 
 @section('content')
-     
+
 <main>
     <section class="section-details-header"> </section>
 
@@ -29,8 +29,19 @@
             <div class="row">
                 <div class="col-lg-8 pl-lg-0">
                     <div class="card card-details">
+                        
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                        
                         <h1>Who is Going?</h1>
-                        <p>Trip to Ubud, Bali, Indonesia</p>
+                    <p>Trip to {{ $item->travel_package->title }},{{$item->travel_package->location}}</p>
 
                         <div class="attendee">
                             <table class="table table-responsive-sm text-center">
@@ -45,52 +56,38 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @forelse ($item->details as $detail)
                                     <tr>
                                         <td>
-                                            <img src="frontend/images/anggaphoto.png" alt="" height="60"
+                                        <img src="https://ui-avatars.com/api/?name={{$detail->username}}" alt="" class="rounded-circle"  height="60"
                                                 class="rounded-circle">
                                         </td>
                                         <td class="align-middle">
-                                            Angga Rizky
+                                            {{ $detail->username }}
                                         </td>
                                         <td class="align-middle">
-                                            CN
+                                            {{ $detail->nationality }}
                                         </td>
                                         <td class="align-middle">
-                                            N/A
+                                            {{ $detail->is_visa ? '30 Days' : 'N/A' }}
                                         </td>
                                         <td class="align-middle">
-                                            Active
+                                            {{ \Carbon\Carbon::createFromDate($detail->doe_passport) > \Carbon\Carbon::now() ? 'Active' : 'Inactive' }}
                                         </td>
                                         <td class="align-middle">
-                                            <a href="#">
+                                        <a href="{{route('checkout-remove', $detail->id)}}">
                                                 <img src="frontend/images/icon-cross.png" width="25" alt="">
                                             </a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="frontend/images/anggaphoto.png" alt="" height="60"
-                                                class="rounded-circle">
-                                        </td>
-                                        <td class="align-middle">
-                                            Angga Rizky
-                                        </td>
-                                        <td class="align-middle">
-                                            CN
-                                        </td>
-                                        <td class="align-middle">
-                                            N/A
-                                        </td>
-                                        <td class="align-middle">
-                                            Active
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="#">
-                                                <img src="frontend/images/icon-cross.png" width="25" alt="">
-                                            </a>
-                                        </td>
-                                    </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">
+                                                No Visitor
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                   
                                 </tbody>
                             </table>
                         </div>
@@ -158,8 +155,8 @@
                             <tr>
                                 <th width="50%">Total (+Unique)</th>
                                 <td width="50%" class="text-right text-total">
-                                    <span class="text-blue" >$ 280,</span>
-                                    <span class="text-orange" >33</span>
+                                    <span class="text-blue">$ 280,</span>
+                                    <span class="text-orange">33</span>
 
                                 </td>
                             </tr>
@@ -206,13 +203,13 @@
                     </div>
 
                     <div class="join-container">
-                        <a href="{{ route('checkout.success') }}" class="btn btn-block btn-join-now mt-3 py-2">
+                        <a href="{{ route('checkout-success', $item->id) }}" class="btn btn-block btn-join-now mt-3 py-2">
                             I Have Made Payment
                         </a>
                     </div>
 
                     <div class="text-center mt-3">
-                        <a href="{{ route('detail') }}" class="text-muted">
+                        <a href="{{ route('detail', $item->travel_package->slug) }}" class="text-muted">
                             Cancel Booking
                         </a>
                     </div>
@@ -241,10 +238,12 @@
         $('.datepicker').datepicker({
             uiLibrary: 'bootstrap4',
             icons: {
-                rightIcon: '<img src="{{ asset('frontend/images/datepicker.png') }}" width="20"/>'
+                rightIcon: '<img src="{{ asset('
+                frontend / images / datepicker.png ') }}" width="20"/>'
             }
         });
     });
+
 </script>
 
 

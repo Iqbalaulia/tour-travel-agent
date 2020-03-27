@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactionsDetailsTable extends Migration
+class CreateTransactionDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTransactionsDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions_details', function (Blueprint $table) {
+        Schema::create('transaction_details', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('transactions_id');
             $table->string('username');

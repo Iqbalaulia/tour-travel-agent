@@ -18,7 +18,7 @@ class CheckoutController extends Controller
      */
     public function index(Request $request , $id)
     {
-        $item = Transaction::with('details,travel_package,user')->findOrFail($id);
+        $item = Transaction::with(['details', 'travel_package', 'user'])->findOrFail($id);
         
         return view('pages.checkout', [
             'item' => $item,
@@ -40,9 +40,10 @@ class CheckoutController extends Controller
         ]);
 
         TransactionDetail::create([
+           
             'transactions_id' => $transaction->id,
             'username' => Auth::user()->username,
-            'nationality' => Auth::user()->nationality,
+            'nationality' => 'ID',
             'is_visa' => false,
             'doe_passport' => Carbon::now()->addYears(5),
 
@@ -113,7 +114,7 @@ class CheckoutController extends Controller
         $transaction->transaction_status = 'PENDIND';
 
         $transaction->save();
-   
+        
         return view('pages.success');
 
     }
