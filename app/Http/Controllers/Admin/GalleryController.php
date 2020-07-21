@@ -55,7 +55,7 @@ class GalleryController extends Controller
 
         $data['image']= $request->file('image')->store(
             'assets/gallery', 'public'
-        );
+);
 
         Gallery::create($data);
         
@@ -87,6 +87,7 @@ class GalleryController extends Controller
 
         return view('pages.admin.gallery.edit',[
             'item' => $item,
+            
             'travel_packages' =>$travel_packages,
         ]);
     }
